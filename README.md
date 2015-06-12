@@ -92,6 +92,53 @@ Esto permite a nuevos usuarios utilizar y experimentar con el API en ambientes d
 
 Considera si una de las metas del producto es permitir un cierto nivel de uso del API en producción sin necesidad de registro por parte de los clientes.
 
+### Respuestas
+
+Utiliza respuestas consistentes a través de los distintos recursos del API.
+
+#### POST, DELETE y PUT
+
+Para acciones de creación (POST), eliminación (DELETE) y actualización (PUT) al realizarse exitosamente, regresa un objeto JSON del recurso creado, borrado o actualizado.
+
+```json
+{
+	"id": 213113,
+	"title": "Lorem ipsum",
+	"content": "Lorem ipsum dolor sit amet..."
+}
+```
+
+#### GET
+
+Para acciones de lectura, al tratarse de un sólo recurso (GET articles/1214), regresa un objeto al igual que para acciones POST, PUT y DELETE.
+
+```json
+{
+	"id": 213113,
+	"title": "Lorem ipsum",
+	"content": "Lorem ipsum dolor sit amet..."
+}
+```
+
+En caso de tratarse de una acción de lectura para un listado de datos (GET articles), regresa un objeto, con una parámetro "results" y metadatos de paginación.
+
+```json
+{
+	"results": [
+	       {
+			"id": 213113,
+			"title": "Lorem ipsum",
+			"content": "Lorem ipsum dolor sit amet..."
+		}
+	],
+	"pagination": {
+		"page": 1,
+		"per_page": 20,
+		"total": 1
+	}
+}
+```
+
 ### Manejo de errores
 
 Maneja todos los errores (incluyendo excepciones no capturadas) y regresa una estructura de datos en el mismo formato que el resto del API.
